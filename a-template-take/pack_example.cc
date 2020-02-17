@@ -7,7 +7,7 @@
 
 #include <functional>
 
-template<typename FunctionPointer, typename = typename fnp_types<FunctionPointer>::PackedArgs>
+template<typename FunctionPointer, typename = typename FnpTypes<FunctionPointer>::PackedArgs>
 class Example;
 
 using SpecType = int (*)(int);

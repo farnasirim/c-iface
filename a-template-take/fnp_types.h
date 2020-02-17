@@ -5,10 +5,10 @@ template<typename... Args>
 struct Pack { };
 
 template<typename FactoryType>
-struct fnp_types;
+struct FnpTypes;
 
 template <typename Res, typename... Args>
-struct fnp_types<Res (*)(Args...)> {
+struct FnpTypes<Res (*)(Args...)> {
  public:
   using ReturnType = Res;
   using PackedArgs = Pack<Args...>;

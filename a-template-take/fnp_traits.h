@@ -6,7 +6,7 @@
 #include <string>
 
 template<typename T, T f>
-struct fnp_traits {
+struct FnpTraits {
   static std::string name() {
     std::string pretty_name = __PRETTY_FUNCTION__;
     std::string start_marker = "f = ", maybe_end_chars= ";,]";
@@ -17,4 +17,4 @@ struct fnp_traits {
   }
 };
 
-#endif
+#endif  // IB_TRAITS_H_

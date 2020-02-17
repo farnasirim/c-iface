@@ -12,7 +12,7 @@
 // you're concerned, you can make it as "tight" as you need with very little
 // work.
 template<typename T, T f>
-struct fnp_traits {
+struct FnpTraits {
   static std::string name() {
     std::string pretty_name = __PRETTY_FUNCTION__;
 
@@ -30,4 +30,4 @@ struct fnp_traits {
   }
 };
 
-#endif
+#endif  // FNP_TRAITS_H_

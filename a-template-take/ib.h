@@ -13,9 +13,9 @@
 // Ask for the type of the Factory (allocator func), and the factory itself.
 // Same goes for the deleter.
 // Finally using the packing technique, ask ask for the Args that are
-// extracted from the function pointer in the `fnp_types` trait.
+// extracted from the function pointer in the `FnpTypes` trait.
 template<typename Factory, Factory f, typename Deleter, Deleter d,
-  typename = typename fnp_types<decltype(f)>::PackedArgs>
+  typename = typename FnpTypes<decltype(f)>::PackedArgs>
 class IbResource;
 
 // The only reason that we need to specilize (as opposed to defining the template
@@ -27,16 +27,16 @@ class IbResource <Factory, f, Deleter, d, Pack<Args...>> {
   // more readable in the uniquee_ptr and the get function. Again, we'll have to
   // do a bit more work to do the correct thing in the rare cases when the
   // functions that return a struct as opposed to a pointer to a struct.
-  using ResourceType = std::remove_pointer_t<typename fnp_types<decltype(f)>::ReturnType>;
+  using ResourceType = std::remove_pointer_t<typename FnpTypes<decltype(f)>::ReturnType>;
 
   // This is hiding the flexibility of std::unique_ptr from the user of
   // IbResource. Might make more sense to directly ask for the final deleter
   // type when you're creatin a concrete IbResource from the IbResource template.
-  std::unique_ptr<ResourceType, void_deleter<ResourceType>> ptr_;
+  std::unique_ptr<ResourceType, VoidDeleter<ResourceType>> ptr_;
 
   IbResource(Args... args): ptr_(
-      factory_wrapper(f, fnp_traits<Factory, f>::name())(std::forward<Args...>(args)...),
-      int_deleter_wrapper(d, fnp_traits<Deleter, d>::name())) { }
+      factory_wrapper(f, FnpTraits<Factory, f>::name())(std::forward<Args...>(args)...),
+      int_deleter_wrapper(d, FnpTraits<Deleter, d>::name())) { }
 
   ResourceType *get() const {
     return ptr_.get();
